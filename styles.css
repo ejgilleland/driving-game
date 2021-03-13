@@ -1,0 +1,12 @@
+html {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #49525c;
+  margin: 0;
+}
+
+img {
+  transform: scale(0.4);
+}
