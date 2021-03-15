@@ -5,8 +5,33 @@ html {
 body {
   background-color: #49525c;
   margin: 0;
+  height: 100vh;
 }
 
 img {
-  transform: scale(0.4);
+  max-height: 204px;
+}
+
+.east {
+  transform: rotate(0);
+}
+
+.south {
+  transform: rotate(90deg);
+}
+
+.west {
+  transform: rotate(180deg);
+}
+
+.north {
+  transform: rotate(-90deg);
+}
+
+.east,
+.south,
+.west,
+.north {
+  transition-duration: 200ms;
+  transition-property: transform;
 }
