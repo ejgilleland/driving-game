@@ -3,6 +3,7 @@ var car = {
   $car: document.querySelector('img'),
   direction: 'east',
   moving: false,
+  movingId: null,
   positionX: 0,
   positionY: 0
 };
@@ -10,10 +11,14 @@ var car = {
 window.addEventListener('keydown', function (event) {
   if (event.key === ' ') {
     car.moving = !car.moving;
-    window.setInterval(function () {
-      car.positionX += 8;
-      car.$car.style.left = car.positionX + 'px';
-    }, 16);
+    if (car.moving) {
+      car.movingId = window.setInterval(function () {
+        car.positionX += 8;
+        car.$car.style.left = car.positionX + 'px';
+      }, 16);
+    } else {
+      window.clearInterval(car.movingId);
+    }
   } else if (event.key === 'ArrowRight') {
     car.direction = 'east';
   } else if (event.key === 'ArrowDown') {
