@@ -38,3 +38,19 @@ img {
   transition-duration: 200ms;
   transition-property: transform;
 }
+
+.coin {
+  height: 35px;
+  position: absolute;
+  top: 500px;
+  left: 500px;
+}
+
+.counter {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: white;
+  position: fixed;
+  top: 0;
+  right: 25px;
+  text-shadow: black 3px 3px 1px;
+}
