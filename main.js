@@ -1,3 +1,32 @@
+var gameboard = {
+  $body: document.querySelector('body'),
+  coinCounter: 0,
+  $coinCounter: document.querySelector('.counter'),
+  coinList: [],
+  collisionCheck: function () {
+    for (let i = 0; i < gameboard.coinList.length; i++) {
+      if (car.positionX < gameboard.coinList[i].positionX + 35 &&
+        car.positionX + 204 > gameboard.coinList[i].positionX &&
+        car.positionY < gameboard.coinList[i].positionY + 35 &&
+        car.positionY + 204 > gameboard.coinList[i].positionY) {
+        gameboard.coinCounter++;
+        gameboard.$coinCounter.textContent = 'Coins: ' + gameboard.coinCounter;
+        gameboard.coinList[i].$coin.remove();
+        gameboard.coinList.splice(i, 1);
+      }
+    }
+  },
+  CoinGenerator: function () {
+    this.$coin = document.createElement('img');
+    this.$coin.className = 'coin';
+    this.$coin.setAttribute('src', 'images/coin-svgrepo-com.svg');
+    this.positionX = Math.random() * 1600;
+    this.positionY = Math.random() * 900;
+    this.$coin.style.left = this.positionX + 'px';
+    this.$coin.style.top = this.positionY + 'px';
+    return this;
+  }
+};
 
 var car = {
   $car: document.querySelector('img'),
@@ -5,10 +34,8 @@ var car = {
   moving: false,
   movingId: null,
   positionX: 0,
-  width: 204,
   positionY: 0,
-  height: 204,
-  driving: function() {
+  driving: function () {
     if (car.direction === 'east') {
       car.positionX += 8;
       car.$car.style.left = car.positionX + 'px';
@@ -23,7 +50,7 @@ var car = {
       car.$car.style.top = car.positionY + 'px';
     }
   },
-  steering: function(event) {
+  steering: function (event) {
     if (event.key === ' ') {
       car.moving = !car.moving;
       if (car.moving) {
@@ -47,22 +74,19 @@ var car = {
   }
 };
 
-var coin = {
-  $coin: document.querySelector('.coin'),
-  positionX: 500,
-  width: 35,
-  positionY: 500,
-  height: 35,
-  collisionCheck: function() {
-    if (car.positionX < coin.positionX + coin.width &&
-      car.positionX + car.width > coin.positionX &&
-      car.positionY < coin.positionY + coin.height &&
-      car.positionY + car.height > coin.positionY) {
-      console.log('poots');
-    }
+window.addEventListener('DOMContentLoaded', function (event) {
+  for (let i = 0; i < 10; i++) {
+    gameboard.coinList[i] = new gameboard.CoinGenerator();
+    gameboard.$body.append(gameboard.coinList[i].$coin);
   }
-};
+});
 
 window.addEventListener('keydown', car.steering);
 
-setInterval(coin.collisionCheck, 16);
+setInterval(gameboard.collisionCheck, 128);
+setInterval(function () {
+  if (gameboard.coinList.length < 10) {
+    gameboard.coinList.push(new gameboard.CoinGenerator());
+    gameboard.$body.append(gameboard.coinList[gameboard.coinList.length - 1].$coin);
+  }
+}, 1000);

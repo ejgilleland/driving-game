@@ -42,8 +42,6 @@ img {
 .coin {
   height: 35px;
   position: absolute;
-  top: 500px;
-  left: 500px;
 }
 
 .counter {
